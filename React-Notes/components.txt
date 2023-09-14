@@ -1,0 +1,92 @@
+** REACT COMPONENTS **  (Büyükleri Meydana Getiren Küçükler)
+
+
+*) React componentslerin amacı sadece kendi içerisinde değişen alanları güncellemek ve
+diğer alanlarla alakalı herhangi güncelleme işlemine izin vermemek.
+
+
+*) Javascript fonksiyonun component olabilmesi için js fonksiyonu oluşturmak ve fonksiyon içerisinde 
+JSX ifadesi return etmek, döndürmektir.
+
+*) Yazdığımız componenti çağırırken mutlaka baş harfi büyük olacak.
+
+*)  Components dosya isimleri genellikle büyük harfle başlar. (Standart)
+
+
+** JSX'de **
+*) return ettiğimiz alanda kapsayıcı elemana ihtiyaç duyar.
+
+MESELA;
+
+return(
+<div>
+   <div>
+     <p>Test</p>
+   </div>
+
+   <div>selam</div>
+</div> 
+);
+
+YA DA ; 
+Reactın vermiş olduğu "Fregmınt" = <> </> veya <React.Fregmınt> </React.Fregmınt>
+
+<>   
+   <div>
+     <p>Test</p>
+   </div>
+
+   <div>selam</div>
+</>   
+
+*) html etiketi gibi div'e class vereceğimiz zaman;
+   <div className="test">
+   şeklinde yazarız.
+
+*) label for yerine htmlFor yazarız.
+   <label htmlFor="test">
+
+
+** Componentlerde Değişken Render Etmek **
+
+const name ="Yıldız";
+let surname = "Şener";
+
+Yukarda tanımladığımız değişkenleri component içinde şu şekilde;
+{name} {surname}  yazarız.
+
+
+** Koşullu Render İşlemi **
+
+*) Süslü parantez içinde yazarız.
+
+const isLoggedIn = true;
+const fullname = "Mehmet Seven";
+
+function App() {
+    return (
+        <div className="test">
+        {isLoggedIn ? "Hoş geldin" + fullname : "Giriş Yapın"}     
+        </div>
+    );
+}
+
+export default App;
+
+
+
+*)  HER COMPONENT DOSYASI OLUŞTURDUĞUMUZDA; *)
+
+import React from "react";                   //Reactı içeri almak
+
+function User() {                            // fonksiyon yazmak
+   return <div></div>;                       
+}
+
+export default User;                        // dışarı aktarmak
+
+
+ZORUNDAYIZ!
+
+
+ES7+REACT/REDUX/REACT-NATİVE SNİPPETS   Eklentisi Kolaylık Sağlıyor! 

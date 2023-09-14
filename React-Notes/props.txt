@@ -1,0 +1,167 @@
+** PROPS ** Properties (Özellik)
+
+*) Props, React bileşenlerinin veri alışverişi yapmasına ve bilgileri bir bileşenden diğerine iletmek için kullanılan bir mekanizmadır.
+
+
+
+
+** ÖRNEK **
+
+
+// ChildComponent.js
+import React from 'react';
+
+function ChildComponent(props) {
+  return <p>{props.message}</p>;
+}
+
+export default ChildComponent;
+
+
+
+
+// ParentComponent.js
+
+import React from 'react';
+import ChildComponent from './ChildComponent';
+
+function ParentComponent() {
+  const greeting = "Merhaba, dünya!";
+  return (
+    <div>
+      <ChildComponent message={greeting} />
+    </div>
+  );
+}
+
+
+
+** ÖRNEK **
+
+
+//App.js
+
+import  User from "./component/User";
+
+function App() {
+    return(
+        <div>
+          <User name="Mehmet Seven" city={"Yalova"} age={56} />         //Verileri giriyoruz
+          <User name="Yılmaz Yılar" city={"Ankara"} age={89} />
+          <User name="Yıldız Şevcan" city={"Hatya"} age={35} />
+        </div>  
+    );
+}
+
+export default App;
+
+
+//UserComponents.js
+
+import React from 'react';
+
+function User(Props) {                          //Component yapısı içerisinde props tanımlıyoruz
+    console.log(props);
+
+    return(
+        <div>
+        User
+        <div>İsim: {props.name}</div>
+        <div>Yaş: {props.age}</div>
+        <div>Şehir: {props.city}</div>
+    )
+}
+
+
+*) Props olarak Obje ve Array veri tipini gönderebiliriz!!
+
+
+//User.js  Component
+
+import React from "react";
+
+function User({ data, friends}) {
+  return(
+    <div>
+    Kişi
+    <div>İsim: {data.name}</div>
+    <div>Yaş: {data.age}</div>
+    <div>Şehir: {data.city}</div>
+    <h3>Arkadaşları</h3>
+    {friends.map((friend, i) => (
+      <div key={i}>{friend}</div>
+    ))}
+    <hr />
+    </div>
+  );
+}
+
+export default User;
+
+
+
+
+// App.js
+
+import User from "./components/User";
+
+function App() {
+  return (
+     <div>
+      <User
+       data={{                                          //Obje Gönderimi
+        name: "Mehmet Seven",
+        city: "Erzurum",
+        age: 29
+       }}
+       friends={["Ahmet","Murat", "Ayşe"]}             //Array Gönderimi
+       />
+      </div>
+  );
+  
+}
+export default App;
+
+
+** PropTypes TANIMI **
+
+*)  Bir bileşenin hangi türdeki verileri beklediğini belirtmek için kullanılır.
+    PropTypes, uygulamanızın daha güvenli ve bakımı daha kolay hale gelmesine yardımcı olan bir araçtır.
+    Bileşenlerin nasıl kullanılması gerektiğini daha net bir şekilde belirlemenize ve hatalı kullanımı
+    daha erken aşamalarda tespit etmenize yardımcı olur.
+
+
+
+
+
+import PropTypes from 'prop-types';
+
+User.propTypes = {
+  name: PropTypes.string,                // name prop'unun bir string olması bekleniyor
+  age: PropTypes.number.isRequired,      // age prop'unun bir zorunlu sayı olması bekleniyor
+};
+
+
+
+function User(props) {
+  return (
+    <div>
+      <p>Name: {props.name}</p>
+      <p>Age: {props.age}</p>
+    </div>
+  );
+}
+
+
+
+
+** DefaultProps Tanımı **
+
+*) Bu, bir bileşenin belirli bir prop'u almadığında veya belirtilmediğinde
+   kullanılacak değeri tanımlamanıza olanak sağlar.
+
+
+User.defaultProps = {
+  name: 'John Doe',                    // name prop'u belirtilmezse, varsayılan değer "John Doe" olacaktır.
+  age: 30,                             // age prop'u belirtilmezse, varsayılan değer 30 olacaktır.
+};

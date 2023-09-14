@@ -1,0 +1,122 @@
+** STATE **   Durum == Componentin Durumu
+
+
+"state" kavramı, bir bileşenin içindeki dinamik verileri depolamak ve bu verilerin
+ güncellenmesini yönetmek için kullanılan bir kavramdır. State, bir bileşenin durumunu temsil eder
+  ve bileşenin render edilmesi sırasında bu durumu
+ kullanarak kullanıcı arayüzünün güncellenmesini sağlar. 
+
+
+
+
+components
+//counter.js
+
+import React, { useState } from "react";                            // Butona tııklandığında tek tek arttırır
+
+function counter() {
+    const [count, setCount] = useState(0);                     // klasik yazım
+
+    return (
+        <div>
+          <h1>{count}</h1>
+          <button onClick={() => setCount(count + 1)}>Arttır</button>
+        </div>
+    );
+}
+
+export default Counter;
+
+
+
+
+
+
+import React, { useState } from "react";   
+
+function counter() {
+    const [count, setCount] = useState(0);
+    const [amount, setAmount] = useState(1);
+
+    return (
+        <div>
+          <h1>{count}</h1>
+          <button onClick={() => setCount(count + amount)}>Arttır</button>
+
+          <hr />
+
+        <div>Arttırma: {amount}</div>                                         // butonlara tıklandığında amounta atadık yukarda counte eklendi.
+        <button onClick={() => setAmount(1)}>+1</button>
+        <button onClick={() => setAmount(3)}>+3</button>
+        <button onClick={() => setAmount(10)}>+10</button>
+        </div>
+    );
+}
+
+export default Counter;
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+** useState Object **
+ 
+const [user, setUser] = useState({ name: "Mehmet", surname: "Seven"});          //Obje tanımlarız
+
+
+{user.name} {user.surname}
+
+<button onClick={() => setUser({...user, name: "Tan"})}>               //state'i güncellemek için setUseri kullanırız                   
+
+<button onClick={() => setUser({...user, surname: "Taçşı"})}>          //Önceki değerleri korumak için her zaman değişecek obje sona gelir.   ...objeİsmi
+
+
+** PREVIOUS STATE **     (Önceki Durum)
+
+
+
+<button onClick={() => setUser((prev) => {...prev, surname: "Taçşı"})}>          //Önceki değeri korumak için objenin ismi yerine prev kullanırız.
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+**   UseEffect   **
+
+*)Projenin daha sistematik ve temiz olmasını sağlar.
+
+
+UseEffect(() => {
+  .......                
+}, [])                //Boş array yazarsak UseEffect sadece ilk render anında çalışır.
+                        Daha sonra useState güncellendiğinde çalışmayacak.
+
+YA DA 
+
+içine bir state yazarsak o state'de her güncellendiğinde çalışır
+
+UseEffect(() => {
+  .......
+}, [name])                 //Örnek state name 
+
+
+
+
+
+
+**   Component Unmount Durumu   **
+
+ function MyComponent() {
+  useEffect(() => {
+    return () => {
+      // Component unmount anında yapılacak işlemler burada tanımlanabilir.
+      
+    };
+  }, []);
+
+
+ }
