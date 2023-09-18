@@ -1,0 +1,128 @@
+** DATA FETCH ** 
+
+// Users.js         -> Components
+
+import React, { useEffect, useState } from "react";          //useEffect  veri çekme Apı isteği için 
+
+function Users() {
+    const [users, setUsers] = useState([]); 
+    const [loading, setLoading] = useState(true); 
+
+
+    useEffect(() => {
+        fetch("https://jsonplaceholder.typicode.com/users")    // Sahte kullanıcı verilerine istek gönderir.
+        .then((res) => res.json())                             // Json ile parse işlemi gerçekleştirdik.             //sunucudan gelen yanıtı JSON formatına dönüştürmek için res.json() yöntemini kullanır.
+        .then((data) => setUsers(data));                       // dönüştürülmüş veriyi alır . Bu sayede, kullanıcı verileri sayfa da görüntülenir.
+        
+        .finally(() => setLoading(false));                     //sayfa yüklenene kadar yükleniyor yazısı gözükecek.      
+    }, []);
+
+    return (                                               //state ile veri çekimi 
+        <div>
+          <h2>Users</h2>
+
+          {loading && <div> Yükleniyor..</div>}
+
+          <ul>
+            {users.map((user) => (
+                <li key={user.id}>{user.name}</li>
+            ))}
+          </ul>
+        </div>  
+    );
+}
+
+export default Users;
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+**    axios    **
+
+*) Başlatılan bir liste durdurulabilir. 
+
+*) Fetch kullanırken sonuç geldiğinde json ile parse etmemiz gerekir fakat axios'da gerekmez.
+
+Terminal üzerine gelip -> npm i axios  yazarak paket kurulumu yazarız. Ardından;
+
+import axios from "axios";       ile içeri aktarırız.
+
+
+
+
+import React, { useEffect, useState } from "react";          //useEffect  veri çekme Apı isteği için 
+import axios from "axios";
+
+
+function Users() {
+    const [users, setUsers] = useState([]); 
+    const [loading, setLoading] = useState(true); 
+
+
+    useEffect(() => {
+        fetch("https://jsonplaceholder.typicode.com/users")    
+        .then((res) => setUsers(res.data));                        //axios
+        
+        .finally(() => setLoading(false));                          
+    }, []);
+
+    return (                                               
+        <div>
+          <h2>Users</h2>
+
+          {loading && <div> Yükleniyor..</div>}
+
+          <ul>
+            {users.map((user) => (
+                <li key={user.id}>{user.name}</li>
+            ))}
+          </ul>
+        </div>  
+    );
+}
+
+export default Users;
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+**    Async/Await   **
+
+*) async ve await, asenkron işlemleri daha okunabilir ve yönetilebilir hale getirmek için
+   kullanılan güçlü bir kombinasyondur.
+
+
+const getData = async () => {
+    const { data: users } = await axios(
+        "https://jsonplaceholder.typicode.com/users"
+    );
+    const { data: posts } = await axios(
+        `https://jsonplaceholder.typicode.com/posts?userId=${users[0].id}`
+    );
+
+    setLoading(false);
+}
+
+
+
+*) const { data: users } = await axios("https://jsonplaceholder.typicode.com/users");: Bu satır,
+   JSONPlaceholder API'sinden kullanıcı verilerini çekmek için Axios kullanır. await ifadesi, Axios tarafından
+   döndürülen Promise'in çözülmesini bekler ve sonra bu veriyi users adlı bir değişkene atar. Bu değişkende 
+   JSONPlaceholder'dan gelen kullanıcı verileri bulunur.
+
+*) const { data: posts } = await axios(https://jsonplaceholder.typicode.com/posts?userId=${users[0].id}`);`: Bu satırda ise,
+   kullanıcının ilk gönderilerini çekmek için başka bir Axios isteği yapılır. await ifadesi, bu isteğin sonucunu bekler ve
+   sonucu posts adlı bir değişkene atar. İkinci Axios isteği, önceki isteğin sonucuna bağlı olarak yapılır, çünkü kullanıcının
+   ilk gönderilerini çekmek için kullanıcının id değeri kullanılır.
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+**  HATA YAKALAMA  **
+
+ASYNC AWAİT içinde hata yakalama işlemi yapmak istersek;
+
+try {} bloğu arasına işlemleri yazıp;
+
+catch(error){
+    console.log('error', error)
+}
+
