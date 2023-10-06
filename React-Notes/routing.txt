@@ -1,0 +1,30 @@
+<--  REACT ROUTER Yönlendirme İşlemleri İçin Kullanılan Araçtır  -->
+reactrouter.com (doküman)
+
+<--  npm install react-router-dom@6  ile router paketini projemize kurmuş olacağız.
+
+*)Sayfalar Arası Yönlendirme
+
+//Components içerisinde;
+(Home.js    dosyası)
+(Users.js   dosyası)
+(Contact.js dosyası)
+<-- Açmış olduğumuz component içerisine;
+
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";
+
+function App() {
+    return(
+        <BrowserRouter>                                              // Routing işlemlerini kapsar.  Routingle ilgili herhangi bir veriye erişmek istersem <BeowserRouter></BrowserRouter> arasında olmam gerekir.
+         <Routes>
+           <Route index element={<Home />} />                        // Bu sayfa açıldığında hangi ekranı görmek istiyorsak o componenti yazarız
+           <Route path="users" element={<Users />} />              // Users sayfasına gelindiğinde hangi component gözücecekse o yazılır.
+           <Route path="contact" element={<Contact />} />
+         </Routes>
+        </BrowserRouter>   
+    );
+}
+
+yazarız..
+

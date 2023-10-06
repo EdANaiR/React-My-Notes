@@ -90,3 +90,10 @@ ZORUNDAYIZ!
 
 
 ES7+REACT/REDUX/REACT-NATİVE SNİPPETS   Eklentisi Kolaylık Sağlıyor! 
+
+
+
+
+*)Yeni React Projesi Açma;
+Terminal'de;
+npx create-react-app projeadi
